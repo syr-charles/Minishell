@@ -1,5 +1,27 @@
 #include "minishell.h"
 
+int		ft_basecommand(char **argv)
+{
+	if (argv[0] == 0)
+		return 1;
+	if (argv[0][0] == 'e' && argv[0][1] == 'x'
+			&& argv[0][2] == 'i' && argv[0][3] == 't'
+			&& argv[0][4] == '\0')
+	{
+		write(1, "exit\n", 5);
+		exit(errno);
+	}
+	if (argv[0][0] == 'e' && argv[0][1] == 'c'
+			&& argv[0][2] == 'h' && argv[0][3] == 'o'
+			&& argv[0][4] == '\0')
+	{
+		ft_echo(argv);
+		return (1);
+	}
+	return (0);
+}
+
+
 int		ft_runcommand(char *cmd, char *path, char **envp)
 {
 	int		i;
@@ -11,14 +33,10 @@ int		ft_runcommand(char *cmd, char *path, char **envp)
 	pid_t 	pid;
 
 	paths = ft_split(path, ':');
-	argv = ft_strip(cmd);
+	argv = ft_strip(cmd, envp);
 	exec = argv[0];
-	if (exec[0] == 'e' && exec[1] == 'x' && exec[2] == 'i'
-		&& exec[3] == 't' && exec[4] == '\0')
-	{
-		write(1, "exit\n", 5);
-		exit(errno);
-	}
+	if (ft_basecommand(argv) == 1)
+		return (1);
 	pid = fork();
 	if (pid == 0)
 	{
