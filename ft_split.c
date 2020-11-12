@@ -6,7 +6,7 @@
 /*   By: cdana <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 15:34:29 by cdana             #+#    #+#             */
-/*   Updated: 2020/11/12 14:24:34 by charles          ###   ########.fr       */
+/*   Updated: 2020/11/12 15:14:14 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char        **ft_strip(char const *s)
     {
         while (s[i] == ' ')
             i++;
-        if (flag == 0 && (s[i] == 39 || s[i] == 34))
+        if (flag == 0 && (s[i] == '\'' || s[i] == '\"'))
             flag = s[i++];
         j = i;
         while (s[j] && (flag != 0 || s[j] != ' '))
@@ -106,8 +106,7 @@ char        **ft_strip(char const *s)
         if ((out[k] = malloc(j - i + 1)) == 0)
             return (0);
         ft_fill(out[k], s + i, j - i);
-        if (j > i)
-            k++;
+		k++;
 		i = j;
 		if (flag != 0)
 		{
