@@ -11,12 +11,19 @@ int		ft_runcommand(char *cmd, char *path, char **envp)
 	pid_t 	pid;
 
 	paths = ft_split(path, ':');
-	argv = ft_split(cmd, ' ');
+	argv = ft_strip(cmd);
 	exec = argv[0];
+	if (exec[0] == 'e' && exec[1] == 'x' && exec[2] == 'i'
+		&& exec[3] == 't' && exec[4] == '\0')
+	{
+		write(1, "exit\n", 5);
+		exit(errno);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
 		i = 0;
+		execve(exec, argv, envp);
 		while (paths[i])
 		{
 			ctnt = ft_strjoin(paths[i], "/");

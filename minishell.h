@@ -13,5 +13,6 @@
 
 int		ft_gnl(int fd, char **line);
 char	**ft_split(char const *line, char sep);
+char	**ft_strip(char const *line);
 char	*ft_strjoin(char const *left, char const *right);
 #endif
