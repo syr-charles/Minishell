@@ -11,7 +11,7 @@ char	**ft_tabappend(char **tab, char *line)
 		tab[0] = 0;
 		return (tab);
 	}
-	if (line[0] == 0)
+	if (line[0] == 0 && tab[0] == 0)
 	{
 		free(line);
 		return (tab);
@@ -67,6 +67,12 @@ char	*ft_completeline(char *line, char **envp, char const *s, int *i)
 	char 	*env;
 
 	(*i)++;
+	if (s[*i] == '?')
+	{
+		line = ft_lineappend(line, '0' + errno);
+		(*i)++;
+		return (line);
+	}
 	env = ft_lineappend(0,0);
 	while (s[*i] && s[*i] != ' ' && s[*i] != '\'' && s[*i] != '\"' && s[*i] != '$')
 	{
@@ -117,7 +123,7 @@ char 	**ft_strip(char const *s, char **envp)
 			flag = 0;
 			i++;
 		}
-		else if (s[i] && (flag != 0 || s[i] != ' '))
+		else if (flag != 0 || s[i] != ' ')
 			line = ft_lineappend(line, s[i++]);
 		else if (flag == 0 && s[i] == ' ')
 		{

@@ -9,6 +9,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # define BUFFER_SIZE 100
+# include <assert.h>
 # include <errno.h>
 
 int		ft_gnl(int fd, char **line);
