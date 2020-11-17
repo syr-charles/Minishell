@@ -18,6 +18,12 @@ int		ft_basecommand(char **argv)
 		ft_echo(argv);
 		return (1);
 	}
+	if (argv[0][0] == 'c' && argv[0][1] == 'd'
+			&& argv[0][2] == '\0')
+	{
+		chdir(argv[1]);
+		return (1);
+	}
 	return (0);
 }
 
