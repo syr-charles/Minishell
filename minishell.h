@@ -17,4 +17,5 @@ char	**ft_split(char const *line, char sep);
 char	**ft_strip(char const *line, char **envp);
 char	*ft_strjoin(char const *left, char const *right);
 int		ft_echo(char **argv);
+int		ft_cd(char **argv, char **envp);
 #endif

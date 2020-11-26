@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		ft_basecommand(char **argv)
+int		ft_basecommand(char **argv, char **envp)
 {
 	if (argv[0] == 0)
 		return 1;
@@ -21,7 +21,7 @@ int		ft_basecommand(char **argv)
 	if (argv[0][0] == 'c' && argv[0][1] == 'd'
 			&& argv[0][2] == '\0')
 	{
-		chdir(argv[1]);
+		ft_cd(argv, envp);
 		return (1);
 	}
 	return (0);
@@ -41,7 +41,7 @@ int		ft_runcommand(char *cmd, char *path, char **envp)
 	paths = ft_split(path, ':');
 	argv = ft_strip(cmd, envp);
 	exec = argv[0];
-	if (ft_basecommand(argv) == 1)
+	if (ft_basecommand(argv, envp) == 1)
 		return (1);
 	pid = fork();
 	if (pid == 0)
