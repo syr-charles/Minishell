@@ -6,7 +6,7 @@
 /*   By: laclide <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 13:00:15 by laclide           #+#    #+#             */
-/*   Updated: 2020/11/26 15:23:14 by charles          ###   ########.fr       */
+/*   Updated: 2020/11/26 15:29:59 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int		ft_cd(char **argv, char **envp)
 
 	i = 0;
 	str = NULL;
-	if (argv[0] == NULL)
+	if (argv[1] == NULL)
 		return (cd_no_argv(envp));
 	if (argv[1][0] != '/')
 	{
