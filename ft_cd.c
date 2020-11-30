@@ -6,7 +6,7 @@
 /*   By: laclide <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 13:00:15 by laclide           #+#    #+#             */
-/*   Updated: 2020/11/26 15:29:59 by charles          ###   ########.fr       */
+/*   Updated: 2020/11/30 14:52:23 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ char	*cd_pwd(char *str2, char **envp)
 	return (NULL);
 }
 
-int		ft_cd(char **argv, char **envp)
+int		ft_cd(char **argv, t_env *e)
 {
 	int		i;
 	char	*str;
@@ -192,17 +192,19 @@ int		ft_cd(char **argv, char **envp)
 	i = 0;
 	str = NULL;
 	if (argv[1] == NULL)
-		return (cd_no_argv(envp));
+		return (cd_no_argv(e->envp));
 	if (argv[1][0] != '/')
 	{
 		if (argv[1][0] != '.')
 		{
-			if (cd_cdpath(argv[0], envp) == 0)
+			if (cd_cdpath(argv[0], e->envp) == 0)
 				return (0);
 		}
+		if (str == NULL)
+			str = cd_pwd(argv[1], e->envp);
 	}
 	if (str == NULL)
-		str = cd_pwd(argv[1], envp);
+		str = argv[1];
 	str = true_form_cdpath(str);	
 	if (chdir(str) == 0)
 		printf("Do something!\n");

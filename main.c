@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		ft_basecommand(char **argv, char **envp)
+int		ft_basecommand(char **argv, t_env *e)
 {
 	if (argv[0] == 0)
 		return 1;
@@ -21,14 +21,14 @@ int		ft_basecommand(char **argv, char **envp)
 	if (argv[0][0] == 'c' && argv[0][1] == 'd'
 			&& argv[0][2] == '\0')
 	{
-		ft_cd(argv, envp);
+		ft_cd(argv, e);
 		return (1);
 	}
 	return (0);
 }
 
 
-int		ft_runcommand(char *cmd, char *path, char **envp)
+int		ft_runcommand(char *cmd, char *path, t_env *e)
 {
 	int		i;
 	char	*exec;
@@ -39,20 +39,20 @@ int		ft_runcommand(char *cmd, char *path, char **envp)
 	pid_t 	pid;
 
 	paths = ft_split(path, ':');
-	argv = ft_strip(cmd, envp);
+	argv = ft_strip(cmd, e);
 	exec = argv[0];
-	if (ft_basecommand(argv, envp) == 1)
+	if (ft_basecommand(argv, e) == 1)
 		return (1);
 	pid = fork();
 	if (pid == 0)
 	{
 		i = 0;
-		execve(exec, argv, envp);
+		execve(exec, argv, e->envp);
 		while (paths[i])
 		{
 			ctnt = ft_strjoin(paths[i], "/");
 			ctnt = ft_strjoin(ctnt, exec);
-			execve(ctnt, argv, envp);
+			execve(ctnt, argv, e->envp);
 			free(ctnt);
 			i++;
 		}
@@ -74,11 +74,13 @@ int		ft_runcommand(char *cmd, char *path, char **envp)
 
 int		main(int argc, char **argv, char **envp)
 {
+	t_env	e;
 	char	*path;
 	char	*line;
 	char 	**instructions;
 	int		i;
 
+	e.envp = envp;
 	i = 0;
 	path = 0;
 	while (envp[i])
@@ -102,7 +104,7 @@ int		main(int argc, char **argv, char **envp)
 		i = 0;
 		while (instructions[i])
 		{
-			ft_runcommand(instructions[i], path, envp);
+			ft_runcommand(instructions[i], path, &e);
 			free(instructions[i]);
 			i++;
 		}
