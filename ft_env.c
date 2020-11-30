@@ -38,7 +38,7 @@ void	ft_del_env(t_env *e, char *name)
 				e->envp[j] = e->envp[j + 1];
 				j++;
 			}
-			e->envp[j] == 0;
+			e->envp[j] = 0;
 		}
 		else
 			i++;
@@ -65,7 +65,7 @@ void	ft_set_env(t_env *e, char *name, char *ctnt)
 			j++;
 		if (name[j] == 0 && e->envp[i][j] == '=')
 		{
-			free(e->envp[i]);
+			//free(e->envp[i]);
 			new_env[i] = ft_strjoin(name, ctnt);
 			check = 1;
 		}
@@ -76,6 +76,6 @@ void	ft_set_env(t_env *e, char *name, char *ctnt)
 	if (check == 0) 
 		new_env[i++] = ft_strjoin(name, ctnt);
 	new_env[i] = 0;
-	free(e->envp);
+	//free(e->envp);
 	e->envp = new_env;
 }

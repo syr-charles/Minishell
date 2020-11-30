@@ -19,7 +19,7 @@ typedef struct	s_env
 
 int		ft_gnl(int fd, char **line);
 char	**ft_split(char const *line, char sep);
-char	**ft_strip(char const *line, t_env *e);
+char	**ft_strip(char const *line, char **envp);
 char	*ft_get_env(t_env *e, char *name);
 void	ft_del_env(t_env *e, char *name);
 void	ft_set_env(t_env *e, char *name, char *ctnt);

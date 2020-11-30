@@ -6,7 +6,7 @@
 /*   By: laclide <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 13:00:15 by laclide           #+#    #+#             */
-/*   Updated: 2020/11/30 14:52:23 by charles          ###   ########.fr       */
+/*   Updated: 2020/11/30 15:16:52 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,10 @@ int		ft_cd(char **argv, t_env *e)
 		str = argv[1];
 	str = true_form_cdpath(str);	
 	if (chdir(str) == 0)
-		printf("Do something!\n");
+	{
+		new = ft_strjoin("=", str);
+		ft_set_env(e, "PWD", new);
+	}
 	return (0);
 }
 

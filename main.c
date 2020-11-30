@@ -39,7 +39,7 @@ int		ft_runcommand(char *cmd, char *path, t_env *e)
 	pid_t 	pid;
 
 	paths = ft_split(path, ':');
-	argv = ft_strip(cmd, e);
+	argv = ft_strip(cmd, e->envp);
 	exec = argv[0];
 	if (ft_basecommand(argv, e) == 1)
 		return (1);
